@@ -1,0 +1,66 @@
+<!--
+  Generated template for the PollPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{pollData.title}}</ion-title>{{pollData.$key}}
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- {{pollData.title}}
+  {{data}} -->
+  <!-- <div *ngFor="let result of pollData">
+    PollData Result: {{result}}
+  </div> -->
+  <!-- <div *ngFor="let result of data">
+    Result: {{result}}
+  </div>
+  <div *ngFor="let slide of data.slider">
+    slider: {{slide}}
+  </div> -->
+  <!-- <button ion-button (click)="addMulti()">Add Sliders</button> -->
+  <form [formGroup]="result">
+<div *ngIf="pollData.sliders">
+<div *ngFor="let slider of result.get('sliders').controls; let i = index"
+  formArrayName="sliders">
+  <div [formGroupName]="i">
+  <ion-list-header>{{slider.value.slideName}}</ion-list-header>
+    <ion-list>
+      <ion-item>
+        <ion-range min="0" max="{{slider.value.max}}" pin="true" formControlName="value">
+          <ion-icon small range-left>{{slider.value.label1}}</ion-icon>
+          <ion-icon small range-right>{{slider.value.label2}}</ion-icon>
+        </ion-range>
+      </ion-item>
+  </ion-list>
+</div>
+</div>
+</div>
+<div *ngIf="pollData.multi.choices">
+
+    <ion-list-header>{{pollData.multi.question}}</ion-list-header>
+
+<ion-list *ngFor="let choice of result.get('multi').controls; let i = index"
+  formArrayName="multi">
+<ion-item [formGroupName]="i">
+  <ion-label fixed>{{choice.value.choice}}</ion-label>
+  <ion-checkbox item-content formControlName="chosen"></ion-checkbox>
+</ion-item>
+
+<!-- <ion-list>
+  <ion-icon small>{{choice.choice}}</ion-icon>
+  <ion-checkbox></ion-checkbox>
+</ion-list> -->
+</ion-list>
+</div>
+<button ion-button (click)="addResult(result)">{{pollData.button}}</button>
+</form>
+<pre>{{result.value | json}}</pre>
+</ion-content>
