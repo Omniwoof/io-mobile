@@ -1,0 +1,50 @@
+<!--
+  Generated template for the ClientPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Client Details: {{clientNickName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  ClientID: {{clientID}}
+
+
+    <ion-card>
+      <ion-card-header>
+        Explore Nearby
+      </ion-card-header>
+    <ion-list *ngFor="let poll of polls | async; let i = index">
+      <ion-item-sliding>
+        <ion-item (click)='openPoll(poll, poll.$key)'>
+          <!-- <button > -->
+            <ion-icon name="trending-up" item-start></ion-icon>{{i+1}}: {{poll.title}} {{poll.$key}}
+          <!-- </button> -->
+        </ion-item>
+      <!-- <button item-end><ion-icon name="close"></ion-icon></button> -->
+      <ion-item-options>
+        <!-- TODO: Add in edit and remove item functions. -->
+        <button ion-button color="secondary" (click)="editItem()"><ion-icon name="create"></ion-icon></button>
+        <button ion-button color="danger" (click)="removeItem()"><ion-icon name="trash"></ion-icon></button>
+      </ion-item-options>
+    </ion-item-sliding>
+    </ion-list>
+  </ion-card>
+
+
+
+  <ion-fab right bottom>
+    <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="newPoll()"><ion-icon name="add-circle"></ion-icon></button>
+      <button ion-fab><ion-icon name="trash"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

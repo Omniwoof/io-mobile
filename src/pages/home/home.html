@@ -21,7 +21,15 @@
   </ion-item>
   <ion-list *ngIf="_auth.currentUser">
       <button ion-item *ngFor="let poll of polls | async; let i = index"
-      (click)='openPage(poll)'>{{i+1}}: {{poll.title}}</button>
+      (click)='openPoll(poll)'>{{i+1}}: {{poll.title}}</button>
   </ion-list>
+  <ion-fab right bottom>
+  <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
+  <ion-fab-list side="left">
+    <button ion-fab (click)="openClientList()"><ion-icon name="people"></ion-icon></button>
+    <button ion-fab (click)="testClick()"><ion-icon name="person-add"></ion-icon></button>
+    <button ion-fab><ion-icon name="settings"></ion-icon></button>
+  </ion-fab-list>
+</ion-fab>
 
 </ion-content>

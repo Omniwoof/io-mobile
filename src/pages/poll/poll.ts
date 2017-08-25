@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { Pipe, PipeTransform } from '@angular/core';
+import * as firebase from 'firebase';
+
 
 /**
  * Generated class for the PollPage page.
@@ -16,12 +17,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   selector: 'page-poll',
   templateUrl: 'poll.html',
 })
-// @Pipe({ name: 'keys',  pure: false })
-// export class KeysPipe implements PipeTransform {
-//     transform(value: any, args: any[] = null): any {
-//         return Object.keys(value)//.map(key => value[key]);
-//     }
-// }
+
 
 export class PollPage {
   pollData;
@@ -34,39 +30,29 @@ export class PollPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public fb: FormBuilder,
-    private db: AngularFireDatabase) {
+    private db: AngularFireDatabase,
+    public toastCtrl: ToastController) {
     this.pollData = this.navParams
       .get('poll');
     console.log('pollData type: ', typeof this.pollData)
     this.data = Object.keys(this.pollData).map(key => this.pollData[key])
-    // this.data = Object.keys(this.pollData).map(key => Object.assign({ key }, this.pollData[key]));
     console.log('data type: ', typeof this.data)
     console.log('data: ', this.data)
     console.log('data.slider typeof: ', typeof this.data.slider)
     this.results = db.list('/results')
-
-    // this.pollData.keys(a).forEach(key => console.log(a[key]))
-
-    // this.pollData.subscribe(data => console.log(data))
     this.buildPoll()
 
-  //   if(this.pollData.multi.choices){
-  //   for (var i=0; i < this.pollData.multi.choices.length; i++){
-  //     return this.fb.group({
-  //       choice: [this.pollData.multi.choices[i], Validators.required],
-  //       chosen: [false, ]
-  //     })
-  //   }
-  // }
 }
 
 buildPoll(){
-  // alert("Poll being built")
-  // console.log('pollData: ', this.pollData)
   this.result = this.fb.group({
     pollID: [this.pollData.$key, ],
+    title: this.pollData.title,
+    button: this.pollData.button,
     clientID: [this.pollData.clientID, Validators.required],
+    // TODO: Change to clientNickName
     clientName: [this.pollData.clientName, Validators.required],
+    created: firebase.database.ServerValue.TIMESTAMP,
     sliders: this.fb.array([]),
     multi: this.fb.array([])
   })
@@ -88,7 +74,8 @@ buildPoll(){
   addResult(value){
     //submit form and new /results
     console.log(value);
-    this.results.push(value._value);
+    this.results.push(value._value)
+      .then(success => this.saveSuccess())
     console.log('Valid Submission! ', value._value)
   }
   createSliders(slideData):
@@ -125,38 +112,11 @@ buildPoll(){
     }
   }
 
-
+  saveSuccess() {
+  let toast = this.toastCtrl.create({
+    message: 'Data saved',
+    duration: 1000
+  });
+  toast.present().then(toast => this.navCtrl.pop());
 }
-
-//   this.result = this.fb.group({
-//   pollID: [this.pollData.$key, ],
-//   title: [this.pollData.title, [Validators.required, Validators.minLength(2)]],
-//   clientID: [this.pollData.clientID, Validators.required],
-//   clientName: [this.pollData.clientName, ],
-//   button: [this.pollData.button, Validators.required],
-//   created: [this.pollData, ],
-//   sliders: this.fb.group({
-//     slider: this.fb.array([
-//       if(this.pollData.sliders){
-//       for (var i=0; i < this.pollData.sliders.slider.length; i++){
-//         return this.fb.group({
-//           slideName: [this.pollData.sliders.slider[i].slideName, ],
-//           max: [this.pollData.sliders.slider[i].max, ],
-//           label1: [this.pollData.sliders.slider[i].label1, ],
-//           label2: [this.pollData.sliders.slider[i].label2, ],
-//           sliderVal: ['', ]
-//         })
-//       }
-//       }
-//     ])
-//   }),
-//   multi: this.fb.group({
-//     question: [this.pollData.multi.question, ],
-//     choices: this.fb.array([
-//       // Don't init on ngOnInit, instead should init on +showChoice() button
-//       // this.initChoice()
-//     ])
-//   })
-//   });
-//
-// }
+}

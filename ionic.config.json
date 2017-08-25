@@ -1,5 +1,8 @@
 {
   "name": "io-mobile",
   "app_id": "6105f9d5",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

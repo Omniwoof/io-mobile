@@ -54,10 +54,13 @@ public currentUser: firebase.User;
       //   this.userProfile = user;
       // })
   }
-  openPage(poll){
+  openPoll(poll){
     this.navCtrl.push('PollPage', {
       poll: poll
     });
+  }
+  openClientList(){
+    this.navCtrl.push('ClientsPage')
   }
 //   loginUser(): void {
 //   this.gp.login().then( res => {
@@ -92,8 +95,8 @@ public currentUser: firebase.User;
 //   console.log("Google display name ",this._auth.displayName());
 //   console.log("Google ID ", this._auth.currentUser);
 // }
-//   testClick(){
-//     alert('Working!')
-//   }
+  testClick(){
+    alert('Working!')
+  }
 
 }
