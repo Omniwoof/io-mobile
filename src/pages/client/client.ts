@@ -45,7 +45,18 @@ export class ClientPage {
     });
   }
   newPoll(){
-    this.navCtrl.push('NewPollPage')
+    this.navCtrl.push('NewPollPage',{
+      clientID: this.clientID,
+      clientNickName: this.clientNickName
+    })
+  }
+  removeItem(poll){
+    console.log('deleting: ', poll);
+    this.polls.remove(poll);
+  }
+  //TODO: Finish this.
+  editItem(poll) {
+    console.log('Editing ', poll)
   }
 
   ionViewDidLoad() {

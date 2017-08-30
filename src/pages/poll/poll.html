@@ -6,7 +6,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{pollData.title}}</ion-title>{{pollData.$key}}
+    <ion-title>{{(pollData|async)?.title}}</ion-title>{{(pollData|async)?.$key}}
   </ion-navbar>
 
 </ion-header>
@@ -25,41 +25,61 @@
     slider: {{slide}}
   </div> -->
   <!-- <button ion-button (click)="addMulti()">Add Sliders</button> -->
+  {{pollData | async | json}}
   <form [formGroup]="result">
-<div *ngIf="pollData.sliders">
-<div *ngFor="let slider of result.get('sliders').controls; let i = index"
-  formArrayName="sliders">
-  <div [formGroupName]="i">
-  <ion-list-header>{{slider.value.slideName}}</ion-list-header>
-    <ion-list>
-      <ion-item>
-        <ion-range min="0" max="{{slider.value.max}}" pin="true" formControlName="value">
-          <ion-icon small range-left>{{slider.value.label1}}</ion-icon>
-          <ion-icon small range-right>{{slider.value.label2}}</ion-icon>
-        </ion-range>
-      </ion-item>
-  </ion-list>
-</div>
-</div>
-</div>
-<div *ngIf="pollData.multi.choices">
+<!-- <div > -->
+  <div *ngFor="let option of result.get('options').controls; let i = index">
+    <div formArrayName="options">
+      <div [formGroupName]="i">
+        <div [ngSwitch]="option.value.controlType">
+          <div *ngSwitchCase="'slider'">
+            <ion-list-header>{{option.value.slideName}}</ion-list-header>
+              <ion-list>
+                <ion-item>
+                  <ion-range min="0" max="{{option.value.max}}" pin="true" formControlName="value">
+                    <ion-icon small range-left>{{option.value.label1}}</ion-icon>
+                    <ion-icon small range-right>{{option.value.label2}}</ion-icon>
+                  </ion-range>
+                </ion-item>
+            </ion-list>
+          </div>
+          <div *ngSwitchCase="'multi'">
+            {{i}}
+            <ion-list-header>{{option.value.title}}</ion-list-header>
+            Choices: {{option.get("choices").controls[0].value.choice}}
+            <ion-list *ngFor="let choice of option.get('choices').controls; let i = index">
+              <div formArrayName="choices">
+                <ion-item [formGroupName]="i">
+                  <ion-label fixed>{{choice.value.choice}}</ion-label>
+                  <ion-checkbox item-content formControlName="chosen"></ion-checkbox>
+                </ion-item>
+              </div>
+            </ion-list>
 
-    <ion-list-header>{{pollData.multi.question}}</ion-list-header>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->
+<div *ngIf="pollData.options">
+
+    <!-- <ion-list-header>{{pollData.multi.question}}</ion-list-header>
 
 <ion-list *ngFor="let choice of result.get('multi').controls; let i = index"
   formArrayName="multi">
 <ion-item [formGroupName]="i">
   <ion-label fixed>{{choice.value.choice}}</ion-label>
   <ion-checkbox item-content formControlName="chosen"></ion-checkbox>
-</ion-item>
+</ion-item> -->
 
 <!-- <ion-list>
   <ion-icon small>{{choice.choice}}</ion-icon>
   <ion-checkbox></ion-checkbox>
 </ion-list> -->
-</ion-list>
+<!-- </ion-list> -->
 </div>
-<button ion-button (click)="addResult(result)">{{pollData.button}}</button>
+<button ion-button (click)="addResult(result)">{{(pollData|async)?.button}}</button>
 </form>
 <pre>{{result.value | json}}</pre>
 </ion-content>

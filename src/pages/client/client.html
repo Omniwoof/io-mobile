@@ -7,19 +7,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Client Details: {{clientNickName}}</ion-title>
+    <ion-title>{{clientNickName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  ClientID: {{clientID}}
-
-
     <ion-card>
       <ion-card-header>
-        Explore Nearby
+        Questions for {{clientNickName}}
       </ion-card-header>
     <ion-list *ngFor="let poll of polls | async; let i = index">
       <ion-item-sliding>
@@ -31,8 +28,8 @@
       <!-- <button item-end><ion-icon name="close"></ion-icon></button> -->
       <ion-item-options>
         <!-- TODO: Add in edit and remove item functions. -->
-        <button ion-button color="secondary" (click)="editItem()"><ion-icon name="create"></ion-icon></button>
-        <button ion-button color="danger" (click)="removeItem()"><ion-icon name="trash"></ion-icon></button>
+        <button ion-button color="secondary" (click)="editItem(poll.$key)"><ion-icon name="create"></ion-icon></button>
+        <button ion-button color="danger" (click)="removeItem(poll.$key)"><ion-icon name="trash"></ion-icon></button>
       </ion-item-options>
     </ion-item-sliding>
     </ion-list>

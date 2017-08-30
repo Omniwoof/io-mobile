@@ -14,10 +14,14 @@
 
 
 <ion-content padding>
-User: {{currentUser.uid}}
+<ion-card>
+  <ion-card-header>
+    My Clients
+  </ion-card-header>
 <ion-list *ngIf="_auth.currentUser">
     <button ion-item *ngFor="let client of clients | async; let i = index"
-    (click)='openClient(client)'>{{i+1}}: {{client.clientNickName}}</button>
+    (click)='openClient(client)'>{{i+1}}: {{client.clientNickName}} | {{client.clientRef}}</button>
 </ion-list>
+</ion-card>
 
 </ion-content>

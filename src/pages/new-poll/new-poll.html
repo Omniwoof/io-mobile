@@ -14,5 +14,81 @@
 
 
 <ion-content padding>
+  NN: {{clientNickName}}
+  ID: {{clientID}}
+  POLLID: {{pollID}}
+  <ion-slides pager>
 
+    <ion-slide>
+      <h2>Create Question</h2>
+      <button ion-button (click)="addSlider()">Slider +</button>
+      <button ion-button (click)="addMulti()">Multi +</button>
+      <button ion-button (click)="logIt()">Show Poll</button>
+      <button ion-button (click)="deletePoll()">Delete Poll</button>
+      <form [formGroup]="poll">
+        <ion-item>
+          <ion-label fixed>Title</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Button</ion-label>
+          <ion-input type="text" formControlName="button"></ion-input>
+        </ion-item>
+        <!-- <div *ngIf="poll.controls.options.controls"> -->
+        <div *ngFor="let option of poll.controls.options.controls; let i = index">
+          <div formArrayName="options">
+          <div [formGroupName]="i">
+            <div [ngSwitch]="option.value.controlType">
+              <div *ngSwitchCase="'slider'">
+                <ion-item>
+                <ion-label fixed >Slider Title</ion-label>
+                <ion-input text formControlName="slideName"></ion-input>
+                </ion-item>
+                <ion-item>
+                <ion-label fixed >Max</ion-label>
+                <ion-input text formControlName="max"></ion-input>
+                </ion-item>
+                <ion-item>
+                <ion-label fixed >Left</ion-label>
+                <ion-input text formControlName="label1"></ion-input>
+                </ion-item>
+                <ion-item>
+                <ion-label fixed >Right</ion-label>
+                <ion-input text formControlName="label2"></ion-input>
+                </ion-item>
+              </div>
+              <div *ngSwitchCase="'multi'">
+                <ion-item>
+                  <ion-label fixed >Multi Choice Title</ion-label>
+                  <ion-input text formControlName="title"></ion-input>
+                </ion-item>
+                <div *ngFor="let choice of option.controls.choices.controls; let index = index">
+                  <button ion-button (click)="addChoice(i)" *ngIf="index<1">Add Choice</button>
+                  <div formArrayName="choices">
+                    <div [formGroupName]="index">
+                      <ion-item>
+                        <ion-label fixed >Choice #{{index+1}}</ion-label>
+                        <ion-input text formControlName="choice"></ion-input>
+                      </ion-item>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </form>
+      <!-- <pre>{{poll.value | json}}</pre> -->
+    </ion-slide>
+
+    <ion-slide>
+      Schedule
+    </ion-slide>
+
+    <ion-slide>
+      <h2>Preview</h2>
+    </ion-slide>
+
+  </ion-slides>
 </ion-content>

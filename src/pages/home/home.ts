@@ -55,8 +55,9 @@ public currentUser: firebase.User;
       // })
   }
   openPoll(poll){
+    console.log("poll clicked: ", poll)
     this.navCtrl.push('PollPage', {
-      poll: poll
+      pollID: poll.$key
     });
   }
   openClientList(){
