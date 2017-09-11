@@ -55,7 +55,7 @@ buildPoll(){
     title: this.poll.title,
     button: this.poll.button,
     clientID: [this.poll.clientID, Validators.required],
-    clientName: [this.poll.clientNickName, Validators.required],
+    clientNickName: [this.poll.clientNickName, Validators.required],
     created: firebase.database.ServerValue.TIMESTAMP,
     options: this.fb.array([])
   })
@@ -119,6 +119,7 @@ buildOptions(){
   createMulti(multiData): FormGroup {
     return this.fb.group({
       controlType: multiData.controlType,
+      title: multiData.title,
       choices: this.fb.array([])
     })
   }

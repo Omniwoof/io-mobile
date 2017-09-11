@@ -20,7 +20,7 @@
       </ion-card-header>
     <ion-list *ngFor="let poll of polls | async; let i = index">
       <ion-item-sliding>
-        <ion-item (click)='openPoll(poll, poll.$key)'>
+        <ion-item (click)='openPoll(poll, poll.$key, poll.pollCreated)'>
           <!-- <button > -->
             <ion-icon name="trending-up" item-start></ion-icon>{{i+1}}: {{poll.title}} {{poll.$key}}
           <!-- </button> -->
@@ -28,6 +28,7 @@
       <!-- <button item-end><ion-icon name="close"></ion-icon></button> -->
       <ion-item-options>
         <!-- TODO: Add in edit and remove item functions. -->
+        <button ion-button color="default" (click)="sheduleNotification(poll.$key, poll.title)"><ion-icon name="time"></ion-icon></button>
         <button ion-button color="secondary" (click)="editItem(poll.$key)"><ion-icon name="create"></ion-icon></button>
         <button ion-button color="danger" (click)="removeItem(poll.$key)"><ion-icon name="trash"></ion-icon></button>
       </ion-item-options>

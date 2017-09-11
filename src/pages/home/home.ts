@@ -27,7 +27,7 @@ public currentUser: firebase.User;
               public _auth: AuthService,
               // private gp: GooglePlus,
               // private platform: Platform,
-              private afAuth: AngularFireAuth,
+              private afAuth: AngularFireAuth
     ) {
       // this._auth.currentUser.subscribe()
 
@@ -99,5 +99,4 @@ public currentUser: firebase.User;
   testClick(){
     alert('Working!')
   }
-
 }

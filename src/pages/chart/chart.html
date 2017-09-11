@@ -7,17 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Chart: {{pollData.title}} {{pollID}}</ion-title>
+    <ion-title>Chart: {{pollData.title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  {{pollData.clientID}}
-  {{pollData | json}}
-  <ion-list>
-    <ion-item *ngFor="let data of chartData | async; let i = index">
-      {{i+1}}: {{data.created}}
-    </ion-item>
-  </ion-list>
+  <div #chart id="chart">
+    <!-- Chart will appear here -->
+  </div>
+
 </ion-content>
