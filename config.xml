@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.inside.outcomes" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <name>Inside Outcomes</name>
+    <description>Measuring outcomes for better results.</description>
+    <author email="david@insideoutcomes.io" href="http://insideoutcomes.io/">Inside Outcomes Team</author>
     <content original-src="index.html" src="http://192.168.0.9:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
@@ -80,6 +80,7 @@
     <allow-navigation href="http://192.168.0.9:8100" />
     <allow-navigation href="http://192.168.42.203:8100" />
     <engine name="android" spec="^6.2.3" />
+    <engine name="browser" spec="^4.1.0" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-device-orientation" spec="^1.0.7" />

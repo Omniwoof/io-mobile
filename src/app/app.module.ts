@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //Import Services
 import { AuthService} from '../providers/auth-service/auth-service'
+import { NotificationsProvider } from '../providers/notifications/notifications';
 
 // AF2 Settings
 export const firebaseConfig = {
@@ -51,7 +52,8 @@ export const firebaseConfig = {
     AuthService,
     GooglePlus,
     ScreenOrientation,
-    LocalNotifications
+    LocalNotifications,
+    NotificationsProvider
   ]
 })
 export class AppModule {}

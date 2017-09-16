@@ -1,0 +1,54 @@
+<!--
+  Generated template for the AddNotificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>addNotification</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  {{pollTitle}} {{pollID}}
+<button ion-button (click)="_np.addNotification(pollTitle, pollID, at)"> Add Note</button>
+<ion-list>
+  <button ion-item *ngFor="let sched of filteredSched; let i = index">
+    {{i+1}}: {{sched.id}} | {{sched.at}}</button>
+</ion-list>
+<form [formGroup]="notification">
+  <ion-item>
+    <ion-label>Frequency</ion-label>
+    <ion-select formControlName="every">
+      <ion-option value="day">Daily</ion-option>
+      <ion-option value="week">Weekly</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="notification.value.every === 'week'">
+    <ion-label>Which Day</ion-label>
+    <ion-select formControlName="firstAt">
+      <ion-option value="monday">Monday</ion-option>
+      <ion-option value="tuesday">Tuesday</ion-option>
+      <ion-option value="wednesday">Wednesday</ion-option>
+      <ion-option value="thursday">Thursday</ion-option>
+      <ion-option value="friday">Friday</ion-option>
+      <ion-option value="saturday">Saturday</ion-option>
+      <ion-option value="sunday">Sunday</ion-option>
+    </ion-select>
+  </ion-item>
+  {{notification.value.frequency}}
+  <ion-item *ngIf="notification.value.every === 'day' || 'week'">
+  <ion-label>Start Time</ion-label>
+  <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" formControlName="at"></ion-datetime>
+</ion-item>
+<button ion-button (click)="addNotif(notification.value)">Add Notification</button>
+</form>
+<button ion-button (click)="_np.showNotes()">SHow Notes</button>
+Current Notes: {{ notes | async }}
+<pre>{{notification.value | json }}</pre>
+
+</ion-content>

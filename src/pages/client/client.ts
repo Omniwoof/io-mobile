@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+// import { LocalNotifications } from '@ionic-native/local-notifications';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from '../../providers/auth-service/auth-service';
@@ -26,7 +26,7 @@ export class ClientPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public db: AngularFireDatabase,
-              public localNotifications: LocalNotifications,
+              // public localNotifications: LocalNotifications,
               public platform: Platform,
               public alertCtrl: AlertController) {
     this.clientID = this.navParams
@@ -39,15 +39,15 @@ export class ClientPage {
         equalTo: this.clientID
       }
     })
-    this.platform.ready().then((ready)=> {
-      this.localNotifications.on('click', (notification, state) => {
-        let alert = this.alertCtrl.create({
-          title: notification.title,
-          subTitle: notification.text
-        })
-        alert.present()
-      })
-    })
+    // this.platform.ready().then((ready)=> {
+    //   this.localNotifications.on('click', (notification, state) => {
+    //     let alert = this.alertCtrl.create({
+    //       title: notification.title,
+    //       subTitle: notification.text
+    //     })
+    //     alert.present()
+    //   })
+    // })
     console.log(this.polls)
   }
 
@@ -73,14 +73,11 @@ export class ClientPage {
     console.log('Editing ', poll)
   }
   sheduleNotification(key, title) {
-    this.localNotifications.schedule({
-      id: key,
-      title: title,
-      text: 'Schedule for this poll has been changed.',
-      at: new Date(new Date().getTime()+5000 )
-    })
+    this.navCtrl.push('AddNotificationPage', {
+      pollID: key,
+      pollTitle: title
+    });
   }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClientPage');
   }

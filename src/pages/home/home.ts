@@ -4,8 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from '../../providers/auth-service/auth-service';
+import { NotificationsProvider } from '../../providers/notifications/notifications';
 import * as firebase from 'firebase/app';
-// import { Platform } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 // import { GooglePlus } from '@ionic-native/google-plus';
 
 
@@ -26,8 +28,10 @@ public currentUser: firebase.User;
               public db: AngularFireDatabase,
               public _auth: AuthService,
               // private gp: GooglePlus,
-              // private platform: Platform,
-              private afAuth: AngularFireAuth
+              private platform: Platform,
+              private afAuth: AngularFireAuth,
+              private _np: NotificationsProvider,
+              public localNotifications:LocalNotifications
     ) {
       // this._auth.currentUser.subscribe()
 
@@ -44,6 +48,23 @@ public currentUser: firebase.User;
           orderByChild: 'counsellorID',
           equalTo: user.uid
         }
+      })
+      this.platform.ready()
+      .then((ready)=> {
+        this.localNotifications.on('click', (notification, state) => {
+          // console.log("notification:", notification)
+          // console.log("notification.text:", notification.text)
+          // console.log("notification.data:", JSON.parse(notification.data))
+          const data = JSON.parse(notification.data)
+          // console.log("notification.data.pollID:", data.pollID)
+          this.navCtrl.push('PollPage', {
+            pollID: data.pollID
+          });
+          // let alert = this.alertCtrl.create({
+          //   title: notification.title,
+          //   subTitle: notification.text
+          // })
+        })
       })
       })
       // afAuth.authState.subscribe((user: firebase.User) => {
