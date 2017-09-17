@@ -7,18 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>addNotification</ion-title>
+    <ion-title>Add Notification for {{pollTitle}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  {{pollTitle}} {{pollID}}
-<button ion-button (click)="_np.addNotification(pollTitle, pollID, at)"> Add Note</button>
-<ion-list>
-  <button ion-item *ngFor="let sched of filteredSched; let i = index">
-    {{i+1}}: {{sched.id}} | {{sched.at}}</button>
+  <!-- {{pollTitle}} {{pollID}} -->
+<!-- <button ion-button (click)="_np.addNotification(pollTitle, pollID, at)"> Add Note</button> -->
+<ion-list *ngFor="let sched of (pollSched | async) ; let i = index">
+  <ion-item-sliding>
+    <ion-item>
+      #{{i+1}}: {{sched.at}} | {{sched.every == 'day'? 'Daily':'Weekly every ' }}{{sched.firstat | titlecase}}
+    </ion-item>
+    <ion-item-options>
+      <button ion-button color="danger" (click)="removeItem(sched.$key)"><ion-icon name="trash"></ion-icon></button>
+    </ion-item-options>
+  </ion-item-sliding>
 </ion-list>
 <form [formGroup]="notification">
   <ion-item>
@@ -47,8 +53,8 @@
 </ion-item>
 <button ion-button (click)="addNotif(notification.value)">Add Notification</button>
 </form>
-<button ion-button (click)="_np.showNotes()">SHow Notes</button>
-Current Notes: {{ notes | async }}
-<pre>{{notification.value | json }}</pre>
+<!-- <button ion-button (click)="_np.showNotes()">SHow Notes</button> -->
+<!-- Current Notes: {{ notes | async }}
+<pre>{{notification.value | json }}</pre> -->
 
 </ion-content>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.inside.outcomes" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Inside Outcomes</name>
-    <description>Measuring outcomes for better results.</description>
+    <description>Better data for better outcomes.</description>
     <author email="david@insideoutcomes.io" href="http://insideoutcomes.io/">Inside Outcomes Team</author>
     <content original-src="index.html" src="http://192.168.0.9:8100" />
     <access origin="*" />

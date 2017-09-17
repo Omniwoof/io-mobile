@@ -101,7 +101,7 @@ schedFactory(sched){
       newAt.setDate(cTime.getDate()+1)
     }
                         const newNote = {
-                          data: {pollID: val.pollID},
+                          data: { pollID: val.pollID },
                           id: i,
                           title: val.title,
                           text: val.text,

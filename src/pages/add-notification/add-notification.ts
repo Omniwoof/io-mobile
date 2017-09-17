@@ -4,6 +4,11 @@ import { NotificationsProvider } from '../../providers/notifications/notificatio
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
+import { TitleCasePipe } from '@angular/common';
+
+
+
+// import { UpperCasePipe } from '@angular/common';
 /**
  * Generated class for the AddNotificationPage page.
  *
@@ -22,6 +27,7 @@ export class AddNotificationPage {
   notification: FormGroup;
   filteredSched;
   schedules: FirebaseListObservable<any>;
+  pollSched: FirebaseListObservable<any>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -33,6 +39,12 @@ export class AddNotificationPage {
               this.pollID = this.navParams.get('pollID')
               this.pollTitle = this.navParams.get('pollTitle')
               this.schedules = db.list('/schedules')
+              this.pollSched = db.list('/schedules', {
+                query: {
+                  orderByChild: 'pollID',
+                  equalTo: this.pollID
+                }
+              })
               this.buildPoll()
               this.filteredSched = _np.listSched.filter(obj => {
                 console.log('OBJ,',obj, this.pollID)
@@ -60,6 +72,10 @@ export class AddNotificationPage {
   addNotif(notification){
     console.log('notification:',notification)
     this._np.addNotification(notification.title, notification.pollID, notification.at, notification.every, notification.firstAt)
+  }
+  removeItem(key){
+    if(key){this.schedules.remove(key)}else{console.log('Error: No key provided')}
+
   }
 
   ionViewDidLoad() {

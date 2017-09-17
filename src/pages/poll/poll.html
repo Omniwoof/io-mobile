@@ -6,7 +6,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{(pollData|async)?.title}}</ion-title>{{(pollData|async)?.$key}}
+    <ion-title>{{(pollData|async)?.title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -25,7 +25,7 @@
     slider: {{slide}}
   </div> -->
   <!-- <button ion-button (click)="addMulti()">Add Sliders</button> -->
-  {{pollData | async | json}}
+  <!-- {{pollData | async | json}} -->
   <form [formGroup]="result">
 <!-- <div > -->
   <div *ngFor="let option of result.get('options').controls; let i = index">
@@ -44,7 +44,6 @@
             </ion-list>
           </div>
           <div *ngSwitchCase="'multi'">
-            {{i}}
             <ion-list-header>{{option.value.title}}</ion-list-header>
             Choices: {{option.get("choices").controls[0].value.choice}}
             <ion-list *ngFor="let choice of option.get('choices').controls; let i = index">
@@ -81,5 +80,5 @@
 </div>
 <button ion-button (click)="addResult(result)">{{(pollData|async)?.button}}</button>
 </form>
-<pre>{{result.value | json}}</pre>
+<!-- <pre>{{result.value | json}}</pre> -->
 </ion-content>
