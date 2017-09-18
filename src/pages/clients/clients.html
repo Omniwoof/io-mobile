@@ -20,7 +20,7 @@
   </ion-card-header>
 <ion-list *ngIf="_auth.currentUser">
     <button ion-item *ngFor="let client of clients | async; let i = index"
-    (click)='openClient(client)'>{{i+1}}: {{client.clientNickName}} | {{client.clientRef}}</button>
+    (click)='openClient(client)'>{{client.clientNickName}} | {{client.clientRef}}</button>
 </ion-list>
 </ion-card>
 

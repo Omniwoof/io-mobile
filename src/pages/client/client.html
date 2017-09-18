@@ -22,7 +22,7 @@
       <ion-item-sliding>
         <ion-item (click)='openPoll(poll, poll.$key, poll.pollCreated)'>
           <!-- <button > -->
-            <ion-icon name="trending-up" item-start></ion-icon>{{i+1}}: {{poll.title}} {{poll.$key}}
+            <ion-icon name="trending-up" item-start></ion-icon>{{poll.title}}
           <!-- </button> -->
         </ion-item>
       <!-- <button item-end><ion-icon name="close"></ion-icon></button> -->
@@ -39,10 +39,10 @@
 
 
   <ion-fab right bottom>
-    <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
-    <ion-fab-list side="left">
+    <button ion-fab color="light" (click)="newPoll()"><ion-icon name="add-circle"></ion-icon></button>
+    <!-- <ion-fab-list side="left">
       <button ion-fab (click)="newPoll()"><ion-icon name="add-circle"></ion-icon></button>
       <button ion-fab><ion-icon name="trash"></ion-icon></button>
-    </ion-fab-list>
+    </ion-fab-list> -->
   </ion-fab>
 </ion-content>

@@ -138,7 +138,7 @@ ngOnInit() {
         // hovermode: 'closest'
       }
       //TODO: Eww..
-      Plotly.plot( element, data, style, {showLink: false})
+      Plotly.plot( element, data, layout, {showLink: false})
     }else{
       let style = {
         title: this.chart[0].title,
@@ -150,7 +150,8 @@ ngOnInit() {
             fixedrange: true
         }
       }
-      Plotly.plot( element, data, style, {showLink: false})
+      // Plotly.plot( element, data, style, {showLink: false})
+      Plotly.plot( element, data, layout, {showLink: false})
     }
     //TODO: The plot data or layout can be retrieved from the <div> element in which the plot was drawn
     // Try placing title reference in the div and then getting the chart to pull the width/height from the div

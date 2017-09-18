@@ -20,11 +20,14 @@
   <!-- <ion-slides pager> -->
 
     <!-- <ion-slide> -->
-      <h2>Create Question</h2>
+    <!-- <ion-card> -->
+
       <button ion-button (click)="addSlider()">Slider +</button>
       <button ion-button (click)="addMulti()">Multi +</button>
-      <button ion-button (click)="logIt()">Show Poll</button>
-      <button ion-button (click)="deletePoll()">Delete Poll</button>
+      <!-- <button ion-button (click)="logIt()">Show Poll</button> -->
+      <!-- <button ion-button (click)="deletePoll()">Delete Poll</button> -->
+    <!-- </ion-card> -->
+    <ion-card>
       <form [formGroup]="poll">
         <ion-item>
           <ion-label fixed>Title</ion-label>
@@ -34,6 +37,8 @@
           <ion-label fixed>Button</ion-label>
           <ion-input type="text" formControlName="button"></ion-input>
         </ion-item>
+
+
         <!-- <div *ngIf="poll.controls.options.controls"> -->
         <div *ngFor="let option of poll.controls.options.controls; let i = index">
           <div formArrayName="options">
@@ -79,6 +84,7 @@
           </div>
         </div>
       </form>
+      </ion-card>
       <!-- <pre>{{poll.value | json}}</pre> -->
     <!-- </ion-slide>
 

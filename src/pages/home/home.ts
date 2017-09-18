@@ -81,6 +81,9 @@ public currentUser: firebase.User;
       pollID: poll.$key
     });
   }
+  openInvite(){
+    this.navCtrl.push('InvitePage')
+  }
   openClientList(){
     this.navCtrl.push('ClientsPage')
   }
