@@ -22,16 +22,16 @@
   <!-- <h3>{{ _auth.currentUser.uid }}</h3> -->
   <button ion-button item-end outline *ngIf="_auth.currentUser" (click)="_auth.signOut()">Sign Out</button>
 </ion-item>
-<ion-card>
+<ion-card *ngIf="_auth.currentUser">
   <ion-card-header>
-   Your Questions
+   My Questions
  </ion-card-header>
-  <ion-list *ngIf="currentUser">
-      <button ion-item *ngFor="let poll of polls | async; let i = index"
+  <ion-list *ngFor="let poll of (polls | async); let i = index" >
+      <button ion-item
       (click)='openPoll(poll)'>{{poll.title}}</button>
   </ion-list>
 </ion-card>
-  <ion-fab right bottom>
+  <ion-fab right bottom *ngIf="_auth.currentUser">
   <button ion-fab color="light"><ion-icon name="menu"></ion-icon></button>
   <ion-fab-list side="left">
     <button ion-fab (click)="openClientList()"><ion-icon name="people"></ion-icon></button>

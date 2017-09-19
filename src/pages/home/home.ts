@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { NavController, Events } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -21,6 +21,8 @@ clients: FirebaseListObservable<any>;
 polls: FirebaseListObservable<any>;
 // userProfile:any = null;
 public currentUser: firebase.User;
+// showPoll:boolean = false;
+// zone;
 // udata;
 // displayName;
 
@@ -31,24 +33,30 @@ public currentUser: firebase.User;
               private platform: Platform,
               private afAuth: AngularFireAuth,
               private _np: NotificationsProvider,
-              public localNotifications:LocalNotifications
+              public localNotifications:LocalNotifications,
+              // public _ngZone: NgZone,
+              private events: Events
     ) {
       // this._auth.currentUser.subscribe()
-
+      // this.zone = new _ngZone
+      // this._ngZone.run(() =>
       afAuth.authState.subscribe((user: firebase.User) => {
+        // console.log("afAuth.authState.subscribe UPDATED")
         this.currentUser = user
-        this.polls = this.db.list('/polls', {
-          query: {
-            orderByChild: 'clientID',
-            equalTo: user.uid
-          }
+        this.genData()
       })
-      this.clients = db.list('/clients', {
-        query: {
-          orderByChild: 'counsellorID',
-          equalTo: user.uid
-        }
-      })
+
+      // _auth.user.subscribe(() => {
+      //     console.log('USER SUB UPDATED')
+      //
+      //     // this.genData()
+      // })
+// )
+
+
+
+      // if(showPoll==false){location.reload()}
+      // this.showPoll=true
       this.platform.ready()
       .then((ready)=> {
         this.localNotifications.on('click', (notification, state) => {
@@ -66,7 +74,7 @@ public currentUser: firebase.User;
           // })
         })
       })
-      })
+
       // afAuth.authState.subscribe((user: firebase.User) => {
       //   if (!user) {
       //     this.userProfile = null;
@@ -76,7 +84,7 @@ public currentUser: firebase.User;
       // })
   }
   openPoll(poll){
-    console.log("poll clicked: ", poll)
+    // console.log("poll clicked: ", poll)
     this.navCtrl.push('PollPage', {
       pollID: poll.$key
     });
@@ -86,6 +94,25 @@ public currentUser: firebase.User;
   }
   openClientList(){
     this.navCtrl.push('ClientsPage')
+  }
+  // signInGoogle(){
+  //   this._ngZone.run(() =>this._auth.signInWithGoogle())
+  // }
+  genData(){
+    // console.log('this.currentUser',this.currentUser)
+    this.polls = this.db.list('/polls', {
+      query: {
+        orderByChild: 'clientID',
+        equalTo: this.currentUser.uid
+      }
+  })
+    this.clients = this.db.list('/clients', {
+    query: {
+      orderByChild: 'counsellorID',
+      equalTo: this.currentUser.uid
+    }
+  })
+  // this.events.publish('updateScreen');
   }
 //   loginUser(): void {
 //   this.gp.login().then( res => {
@@ -120,7 +147,7 @@ public currentUser: firebase.User;
 //   console.log("Google display name ",this._auth.displayName());
 //   console.log("Google ID ", this._auth.currentUser);
 // }
-  testClick(){
-    alert('Working!')
-  }
+//   testClick(){
+//     alert('Working!')
+//   }
 }
