@@ -33,19 +33,24 @@
       <div [formGroupName]="i">
         <div [ngSwitch]="option.value.controlType">
           <div *ngSwitchCase="'slider'">
-            <ion-list-header>{{option.value.slideName}}</ion-list-header>
-              <ion-list>
+            <ion-card>
+              <ion-card-header>{{option.value.slideName}}</ion-card-header>
+            </ion-card>
+              <!-- <ion-list> -->
                 <ion-item>
                   <ion-range min="0" max="{{option.value.max}}" pin="true" formControlName="value">
                     <ion-icon small range-left>{{option.value.label1}}</ion-icon>
                     <ion-icon small range-right>{{option.value.label2}}</ion-icon>
                   </ion-range>
                 </ion-item>
-            </ion-list>
+            <!-- </ion-list> -->
+
           </div>
           <div *ngSwitchCase="'multi'">
-            <ion-list-header>{{option.value.title}}</ion-list-header>
-            Choices: {{option.get("choices").controls[0].value.choice}}
+            <ion-card>
+              <ion-card-header>{{option.value.title}}</ion-card-header>
+            </ion-card>
+            <!-- Choices: {{option.get("choices").controls[0].value.choice}} -->
             <ion-list *ngFor="let choice of option.get('choices').controls; let i = index">
               <div formArrayName="choices">
                 <ion-item [formGroupName]="i">
@@ -80,5 +85,19 @@
 </div>
 <button ion-button (click)="addResult(result)">{{(pollData|async)?.button}}</button>
 </form>
-<!-- <pre>{{result.value | json}}</pre> -->
+<ion-footer>
+  <ion-toolbar>
+    <!-- <button ion-button icon-right end (click)='openPoll(poll, poll.$key, poll.pollCreated)'>
+      Chart
+      <ion-icon name="stats"></ion-icon>
+    </button> -->
+    <!-- <p>See the chart for this question</p> -->
+    <ion-buttons end>
+      <button ion-button icon-right (click)='openPoll(poll, poll.$key, poll.pollCreated)'>
+        Chart
+        <ion-icon name="stats"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
 </ion-content>

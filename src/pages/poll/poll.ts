@@ -147,4 +147,12 @@ buildOptions(){
   toast.present()
     .then(toast => this.navCtrl.pop());
 }
+openPoll(poll, pollID, pollCreated){
+  this.navCtrl.push('ChartPage', {
+    poll: poll,
+    pollID: pollID,
+    pollCreated: pollCreated
+  });
+}
+
 }

@@ -18,11 +18,13 @@
       <ion-card-header>
         Questions for {{clientNickName}}
       </ion-card-header>
-    <ion-list *ngFor="let poll of polls | async; let i = index">
-      <ion-item-sliding>
+    </ion-card>
+    <ion-list inset >
+      <ion-item-sliding *ngFor="let poll of polls | async; let i = index">
         <ion-item (click)='openPoll(poll, poll.$key, poll.pollCreated)'>
           <!-- <button > -->
-            <ion-icon name="trending-up" item-start></ion-icon>{{poll.title}}
+            <!-- <ion-icon name="trending-up" item-start></ion-icon> -->
+            {{poll.title}}
           <!-- </button> -->
         </ion-item>
       <!-- <button item-end><ion-icon name="close"></ion-icon></button> -->
@@ -34,12 +36,12 @@
       </ion-item-options>
     </ion-item-sliding>
     </ion-list>
-  </ion-card>
+  <!-- </ion-card> -->
 
 
 
   <ion-fab right bottom>
-    <button ion-fab color="light" (click)="newPoll()"><ion-icon name="add-circle"></ion-icon></button>
+    <button ion-fab color="gold" (click)="newPoll()"><ion-icon name="add-circle"></ion-icon></button>
     <!-- <ion-fab-list side="left">
       <button ion-fab (click)="newPoll()"><ion-icon name="add-circle"></ion-icon></button>
       <button ion-fab><ion-icon name="trash"></ion-icon></button>

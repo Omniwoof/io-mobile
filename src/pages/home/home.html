@@ -1,16 +1,16 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar>
     <ion-title>
       Inside Outcomes
     </ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-nav id="nav" [root]="rootPage" #nav swipeBackEnabled="false"></ion-nav>
 
 <ion-content padding>
   <!-- <ion-item> -->
-  <button ion-button outline *ngIf="!_auth.currentUser" (click)="_auth.signInWithGoogle()"><ion-icon name="logo-googleplus"></ion-icon> Sign In</button>
+  <button ion-button *ngIf="!_auth.currentUser" (click)="_auth.signInWithGoogle()"><ion-icon name="logo-googleplus"></ion-icon> Sign In</button>
 
 <!-- </ion-item> -->
 <ion-item item-right *ngIf="_auth.currentUser">
@@ -20,22 +20,23 @@
   <h2>{{ _auth.currentUser.displayName }}</h2>
   <h3>{{ _auth.currentUser.email }}</h3>
   <!-- <h3>{{ _auth.currentUser.uid }}</h3> -->
-  <button ion-button item-end outline *ngIf="_auth.currentUser" (click)="_auth.signOut()">Sign Out</button>
+  <button ion-button item-end *ngIf="_auth.currentUser" (click)="_auth.signOut()">Sign Out</button>
 </ion-item>
 <ion-card *ngIf="_auth.currentUser">
   <ion-card-header>
-   My Questions
+   <b>My Questions</b>
  </ion-card-header>
-  <ion-list *ngFor="let poll of (polls | async); let i = index" >
-      <button ion-item
+ </ion-card>
+  <ion-list inset>
+      <button ion-item *ngFor="let poll of (polls | async); let i = index"
       (click)='openPoll(poll)'>{{poll.title}}</button>
   </ion-list>
-</ion-card>
+
   <ion-fab right bottom *ngIf="_auth.currentUser">
-  <button ion-fab color="light"><ion-icon name="menu"></ion-icon></button>
+  <button ion-fab color="gold"><ion-icon name="menu"></ion-icon></button>
   <ion-fab-list side="left">
-    <button ion-fab (click)="openClientList()"><ion-icon name="people"></ion-icon></button>
-    <button ion-fab (click)="openInvite()"><ion-icon name="person-add"></ion-icon></button>
+    <button ion-fab color="gold" (click)="openClientList()"><ion-icon name="people"></ion-icon></button>
+    <button ion-fab color="gold" (click)="openInvite()"><ion-icon name="person-add"></ion-icon></button>
     <!-- <button ion-fab><ion-icon name="settings"></ion-icon></button> -->
     <!-- <button ion-fab (click)="_np.showNotes"><ion-icon name="clock"></ion-icon></button> -->
   </ion-fab-list>

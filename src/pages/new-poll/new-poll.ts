@@ -38,7 +38,7 @@ export class NewPollPage {
     .get('clientNickName')
     this.polls = db.list("/polls")
     this.buildPoll()
-    this.poll.valueChanges.debounceTime(1500).subscribe(data => {
+    this.poll.valueChanges.debounceTime(3000).subscribe(data => {
       console.log('Form changes', data)
       //TODO: Add validation
       this.polls.update(this.pollID, data)

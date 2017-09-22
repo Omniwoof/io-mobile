@@ -16,12 +16,13 @@
 <ion-content padding>
 <ion-card>
   <ion-card-header>
-    My Clients
+    <b>My Clients</b>
   </ion-card-header>
-<ion-list *ngIf="_auth.currentUser">
+</ion-card>
+<ion-list inset *ngIf="_auth.currentUser">
     <button ion-item *ngFor="let client of clients | async; let i = index"
     (click)='openClient(client)'>{{client.clientNickName}} | {{client.clientRef}}</button>
 </ion-list>
-</ion-card>
+
 
 </ion-content>

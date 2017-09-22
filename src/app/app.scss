@@ -19,4 +19,11 @@
 .content-md {
   background-color: #2a4d69
 }
-// background-colour:red;
+
+.toolbar-background {
+  background: color($colors, gold)
+}
+
+.card-md, .list-md-border-color{
+  background: color($colors, gold)
+}
