@@ -27,8 +27,9 @@
       <!-- <button ion-button (click)="logIt()">Show Poll</button> -->
       <!-- <button ion-button (click)="deletePoll()">Delete Poll</button> -->
     <!-- </ion-card> -->
-    <ion-card>
+
       <form [formGroup]="poll">
+        <ion-card>
         <ion-item>
           <ion-label fixed>Title</ion-label>
           <ion-input type="text" formControlName="title"></ion-input>
@@ -37,10 +38,12 @@
           <ion-label fixed>Button</ion-label>
           <ion-input type="text" formControlName="button"></ion-input>
         </ion-item>
+        </ion-card>
 
-
+            <!-- <ion-card> -->
         <!-- <div *ngIf="poll.controls.options.controls"> -->
         <div *ngFor="let option of poll.controls.options.controls; let i = index">
+          <ion-item-divider color="gold"></ion-item-divider>
           <div formArrayName="options">
           <div [formGroupName]="i">
             <div [ngSwitch]="option.value.controlType">
@@ -83,8 +86,9 @@
           </div>
           </div>
         </div>
+      <!-- </ion-card> -->
       </form>
-      </ion-card>
+
       <!-- <pre>{{poll.value | json}}</pre> -->
     <!-- </ion-slide>
 

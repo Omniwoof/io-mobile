@@ -16,5 +16,7 @@
   <div #chart id="chart">
     <!-- Chart will appear here -->
   </div>
-
+  <ion-card *ngIf="xData.length < 1">
+    <ion-card-header>NO CHART DATA</ion-card-header>
+  </ion-card>
 </ion-content>

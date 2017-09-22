@@ -71,7 +71,7 @@ ngOnInit() {
 
         const element = this.el.nativeElement
         const style = {
-          title: this.chart[0].title,
+          // title: this.chart[0].title,
           // height: this.platform.width(),
           // width: this.platform.height(),
         }
@@ -117,13 +117,13 @@ ngOnInit() {
     const element = this.el.nativeElement
     let data = this.data
     const layout = {
-      title: this.chart[0].title,
+      // title: this.chart[0].title,
       autosize: true
     }
 
     if (this.platform.is('core')){
       let style = {
-        title: this.chart[0].title,
+        // title: this.chart[0].title,
         xaxis: {
             rangeselector: selectorOptions,
             rangeslider: {}
@@ -141,7 +141,7 @@ ngOnInit() {
       Plotly.plot( element, data, layout, {showLink: false})
     }else{
       let style = {
-        title: this.chart[0].title,
+        // title: this.chart[0].title,
         xaxis: {
             rangeselector: selectorOptions,
             // rangeslider: {}
@@ -170,7 +170,7 @@ ngOnInit() {
   getChartStructure(chartData){
     console.log('chartData: ', chartData)
     const struct = ['frequency']
-    if (chartData[0].options){
+    if (chartData.length>0){
       chartData[0].options.forEach(opt => struct.push(opt.controlType))
     }
     console.log('chartStructure: ', struct)
@@ -195,7 +195,7 @@ ngOnInit() {
           break
       }
     })
-    this.lineChart()
+    if (this.chart.length>0){this.lineChart()}
     return struct
   }
 

@@ -16,7 +16,7 @@
 <ion-content padding>
     <ion-card>
       <ion-card-header>
-        Questions for {{clientNickName}}
+        <b>Questions for {{clientNickName}}</b>
       </ion-card-header>
     </ion-card>
     <ion-list inset >
@@ -30,9 +30,9 @@
       <!-- <button item-end><ion-icon name="close"></ion-icon></button> -->
       <ion-item-options>
         <!-- TODO: Add in edit and remove item functions. -->
-        <button ion-button color="default" (click)="sheduleNotification(poll.$key, poll.title)"><ion-icon name="time"></ion-icon></button>
+        <button ion-button color="default" (click)="sheduleNotification(poll.$key, poll.title)"><ion-icon name="time"></ion-icon>Schedules</button>
         <!-- <button ion-button color="secondary" (click)="editItem(poll.$key)"><ion-icon name="create"></ion-icon></button> -->
-        <button ion-button color="danger" (click)="removeItem(poll.$key, poll.title)"><ion-icon name="trash"></ion-icon></button>
+        <button ion-button color="danger" (click)="removeItem(poll.$key, poll.title)"><ion-icon name="trash"></ion-icon>Delete</button>
       </ion-item-options>
     </ion-item-sliding>
     </ion-list>

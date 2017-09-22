@@ -51,15 +51,16 @@
               <ion-card-header>{{option.value.title}}</ion-card-header>
             </ion-card>
             <!-- Choices: {{option.get("choices").controls[0].value.choice}} -->
-            <ion-list *ngFor="let choice of option.get('choices').controls; let i = index">
-              <div formArrayName="choices">
+            <!-- <ion-item> -->
+            <ion-list >
+              <div formArrayName="choices" *ngFor="let choice of option.get('choices').controls; let i = index">
                 <ion-item [formGroupName]="i">
                   <ion-label fixed>{{choice.value.choice}}</ion-label>
                   <ion-checkbox item-content formControlName="chosen"></ion-checkbox>
                 </ion-item>
               </div>
             </ion-list>
-
+          <!-- </ion-item> -->
           </div>
         </div>
       </div>
