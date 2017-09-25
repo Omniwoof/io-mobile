@@ -10,7 +10,7 @@
 
 <ion-content padding>
   <!-- <ion-item> -->
-  <button ion-button *ngIf="!_auth.currentUser" (click)="_auth.signInWithGoogle()"><ion-icon name="logo-googleplus"></ion-icon> Sign In</button>
+  <button ion-button color="lightblue" class="newformbutton" *ngIf="!_auth.currentUser" (click)="_auth.signInWithGoogle()"><ion-icon name="logo-googleplus"></ion-icon> Sign In</button>
 
 <!-- </ion-item> -->
 <ion-item item-right *ngIf="_auth.currentUser">
@@ -20,7 +20,7 @@
   <h2>{{ _auth.currentUser.displayName }}</h2>
   <h3>{{ _auth.currentUser.email }}</h3>
   <!-- <h3>{{ _auth.currentUser.uid }}</h3> -->
-  <button ion-button item-end *ngIf="_auth.currentUser" (click)="_auth.signOut()">Sign Out</button>
+  <button ion-button item-end color="lightblue" class="newformbutton" *ngIf="_auth.currentUser" (click)="_auth.signOut()">Sign Out</button>
 </ion-item>
 <ion-card *ngIf="_auth.currentUser">
   <ion-card-header>
