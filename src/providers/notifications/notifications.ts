@@ -107,7 +107,8 @@ schedFactory(sched){
                           text: val.text,
                           at: newAt,
                           firstAt: val.firstAt,
-                          every: val.every
+                          every: val.every,
+                          color: '2A4C69',
                         }
                         // console.log('New: ', newNote)
                         this.listSched.push(newNote)

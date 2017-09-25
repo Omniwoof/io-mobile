@@ -26,15 +26,16 @@
   </div> -->
   <!-- <button ion-button (click)="addMulti()">Add Sliders</button> -->
   <!-- {{pollData | async | json}} -->
+<div class='formwrapper'>
   <form [formGroup]="result">
 <!-- <div > -->
   <div *ngFor="let option of result.get('options').controls; let i = index">
     <div formArrayName="options">
       <div [formGroupName]="i">
-        <div [ngSwitch]="option.value.controlType">
-          <div *ngSwitchCase="'slider'">
+        <div  [ngSwitch]="option.value.controlType">
+          <div class='formdiv' *ngSwitchCase="'slider'">
             <ion-card>
-              <ion-card-header>{{option.value.slideName}}</ion-card-header>
+              <ion-card-header><b>{{option.value.slideName}}</b></ion-card-header>
             </ion-card>
               <!-- <ion-list> -->
                 <ion-item>
@@ -48,7 +49,7 @@
           </div>
           <div *ngSwitchCase="'multi'">
             <ion-card>
-              <ion-card-header>{{option.value.title}}</ion-card-header>
+              <ion-card-header><b>{{option.value.title}}</b></ion-card-header>
             </ion-card>
             <!-- Choices: {{option.get("choices").controls[0].value.choice}} -->
             <!-- <ion-item> -->
@@ -61,13 +62,18 @@
               </div>
             </ion-list>
           <!-- </ion-item> -->
-          </div>
+
         </div>
       </div>
     </div>
   </div>
+
+  </div>
+  <div>
+  <button ion-button class='formbutton' color="lightblue" (click)="addResult(result)">{{(pollData|async)?.button}}</button>
+  </div>
 <!-- </div> -->
-<div *ngIf="pollData.options">
+<!-- <div *ngIf="pollData.options"> -->
 
     <!-- <ion-list-header>{{pollData.multi.question}}</ion-list-header>
 
@@ -83,9 +89,10 @@
   <ion-checkbox></ion-checkbox>
 </ion-list> -->
 <!-- </ion-list> -->
-</div>
-<button ion-button (click)="addResult(result)">{{(pollData|async)?.button}}</button>
+<!-- </div> -->
+
 </form>
+</div>
 <ion-footer>
   <ion-toolbar>
     <!-- <button ion-button icon-right end (click)='openPoll(poll, poll.$key, poll.pollCreated)'>

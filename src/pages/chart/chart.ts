@@ -168,9 +168,9 @@ ngOnInit() {
   }
 
   getChartStructure(chartData){
-    console.log('chartData: ', chartData)
+    console.log('chartData subscribe: ', chartData)
     const struct = ['frequency']
-    if (chartData.length>0){
+    if (chartData.length>0 && chartData[0].options){
       chartData[0].options.forEach(opt => struct.push(opt.controlType))
     }
     console.log('chartStructure: ', struct)
@@ -178,6 +178,7 @@ ngOnInit() {
   }
 
   getChartData(chartData){
+    console.log('chartData')
     let struct = this.getChartStructure(chartData)
 
     struct.forEach((type, i) => {
