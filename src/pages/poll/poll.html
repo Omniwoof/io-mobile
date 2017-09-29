@@ -71,8 +71,8 @@
   </div>
   <div>
   <button ion-button class='formbutton' color="lightblue" (click)="addResult(result)">{{(pollData|async)?.button}}</button>
-  <button ion-button class='formbutton' color="lightblue" (click)="addData(result)">GenData</button>
-  <button ion-button class='formbutton' color="lightblue" (click)="clearData()">ClearData</button>
+  <button ion-button class='formbutton' color="danger" (click)="addData(result)">GenData</button>
+  <button ion-button class='formbutton' color="danger" (click)="clearData()">ClearData</button>
   </div>
 <!-- </div> -->
 <!-- <div *ngIf="pollData.options"> -->
