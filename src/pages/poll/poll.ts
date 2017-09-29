@@ -27,6 +27,7 @@ export class PollPage {
   result: FormGroup;
   results: FirebaseListObservable<any[]>;
   items;
+  currentPollData;
 
 
   constructor(public navCtrl: NavController,
@@ -45,6 +46,12 @@ export class PollPage {
       })
     console.log("PollData: ", this.pollData)
     this.results = db.list('/results')
+    this.currentPollData = db.list('/results', {
+      query: {
+        orderByChild: 'pollID',
+        equalTo: this.pollID
+      }
+    })
     // this.buildPoll()
 
 }
@@ -156,7 +163,7 @@ openPoll(poll, pollID, pollCreated){
 }
 
 addData(result){
-  const datapoints = 1000
+  const datapoints = 100
   let resultArray = []
   // let resultArray = []
   let testArray = []
@@ -167,40 +174,58 @@ addData(result){
   for (let i = 0; i < datapoints; i++ ){
 
     const now = new Date().getTime()
-    let newNow = now - Math.trunc(Math.random()*100000000000)
+    let newNow = now - Math.trunc(Math.random()*9000000000)
     let newResult = {
       created: newNow,
       button: result.value.button,
       clientID: result.value.clientID,
       pollID: result.value.pollID,
       title: result.value.title,
-      options: [{
-        controlType: result.value.options[0].controlType,
-        label1: result.value.options[0].label1,
-        label2: result.value.options[0].label2,
-        max: result.value.options[0].max,
-        slideName: result.value.options[0].slideName,
-        value: Math.trunc(Math.random()*10)
-      }]
+      options: []
+      // [{
+      //   controlType: result.value.options[0].controlType,
+      //   label1: result.value.options[0].label1,
+      //   label2: result.value.options[0].label2,
+      //   max: result.value.options[0].max,
+      //   slideName: result.value.options[0].slideName,
+      //   value: Math.trunc(Math.random()*10)
+      // }]
       }
-    // newResult.value.created = newNow
-    // console.log('newResult changed', newResult)
+    if (this.poll.options){
+      this.poll.options.forEach((x, index) => {
+        // console.log('option', x)
+        if (x.controlType == 'slider'){
+          newResult.options.push({
+            controlType: x.controlType,
+            label1: x.label1,
+            label2: x.label2,
+            max: x.max,
+            slideName: x.slideName,
+            value: Math.trunc(Math.random()*10)
+          })
+        }
+        if(x.controlType == 'multi'){
+          // let choiceLength = x.choices.length
+          // console.log('choiceLength',choiceLength)
+          let choiceArray = []
+          x.choices.forEach((y,i) => {
+            // console.log('Choices', y)
+            let random = false
+            if(Math.trunc(Math.random()*10)>5){random = true}
+            let choice = y.choice
+            let chosen = random
+            choiceArray.push({choice: choice, chosen: chosen})
+            // console.log('choiceArray', choiceArray)
+          })
+          newResult.options.push({
+            controlType: x.controlType,
+            choices: choiceArray
+          })
+        }
+      })
+    }
+    // console.log("newResult prepush",newResult)
     resultArray.push(newResult)
-    // console.log('resultArray.value.created: ', resultArray)
-    //
-    // let testObject = {i:i}
-    // let newNow = now - Math.trunc(Math.random()*100000000000)
-    // console.log("resultArray",resultArray)
-    // console.log("newNow",newNow)
-    // newResult.created = newNow
-    // console.log("newResult.created",newResult.created)
-    // newResult.options[0].value = Math.trunc(Math.random()*10)
-    // console.log("newResult.options[0].value ",newResult.options[0].value )
-    // // console.log("newResult.value",newResult.value)
-    // console.log("newResult",newResult)
-    // resultArray.push(newResult)
-    // testArray.push(testObject)
-    // console.log('testArray', testArray)
   }
   // console.log('resultArray: ', resultArray)
   const newResArray = resultArray.sort((a,b )=>{
@@ -216,12 +241,23 @@ addData(result){
   })
   // console.log('newResArray',newResArray)
   newResArray.forEach(x => {
-    this.results.push(x)
+    // console.log('newResArray',x)
+    setTimeout(()=>{this.results.push(x)}, 100);
+
   })
+  console.log('Data Generated')
 }
 
 clearData(){
-  this.results.remove()
+  this.currentPollData.forEach(x => {
+    // console.log("X",x)
+    x.forEach(y => {
+      this.results.remove(y.$key)
+    })
+
+  })
+  console.log('Data Cleared')
+
 }
 
 

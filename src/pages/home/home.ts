@@ -59,6 +59,7 @@ public currentUser: firebase.User;
       // this.showPoll=true
       this.platform.ready()
       .then((ready)=> {
+        this.localNotifications.clearAll()
         this.localNotifications.on('click', (notification, state) => {
           // console.log("notification:", notification)
           // console.log("notification.text:", notification.text)

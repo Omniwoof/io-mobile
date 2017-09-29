@@ -66,6 +66,7 @@ export class ChartPage {
     })
   }
 ngOnInit() {
+  //TODO: Screen rotation no longer working.
   this.screenOrientation.onChange().subscribe(
      () => {
 
@@ -88,6 +89,7 @@ ngOnInit() {
   }
 
   lineChart() {
+    //TODO: Fix this
     const selectorOptions = {
     buttons: [{
         step: 'month',
@@ -445,60 +447,3 @@ ngOnInit() {
   }
 
 }
-
-//
-// buildChartData(){
-//   console.log('this.Chart: ', this.chart)
-//   if (this.chart){
-//     this.xData = this.chart.map(x => new Date(x.created))
-//     this.yData = this.chart.map(y => 1)
-//     this.chart.forEach(chartData => this.optionsData.push(chartData))
-//     this.optionsData.forEach((data, i) => {
-//       console.log('data: ', data)
-//       let options = data.options
-//       options.forEach((option, index) => {
-//         console.log('Option details: ', option)
-//         switch (option.controlType) {
-//           case 'slider':
-//             console.log("Slider data found!", index)
-//             console.log("Slider value: ", option.value)
-//             //do slider stuff
-//             break
-//           case 'multi':
-//           //TODO Save multi.title in results
-//             console.log("Multi data found!", index)
-//             console.log("Muli choices: ", option.choices)
-//             let multiTitle = option.title
-//             let results = []
-//             let currentList = []
-//             option.choices.forEach((result, mIndex) => {
-//               let currentArray = results[mIndex]
-//               currentList.push(result.chosen)
-//               console.log('currentList: ', currentList)
-//               currentArray = [result.choice, [currentList]]
-//               console.log('currentArray: ', currentArray)
-//               results[mIndex] = currentArray
-//             })
-//             console.log('Results! ', results)
-//             results.forEach(res => {
-//               console.log('res: ',res[0], this.xData, res[1])
-//               this.aggregateSum(res[1])
-//               // this.addToDataArray(res[0], this.xData, res[1])
-//             })
-//             // console.log([choices.choice, choices.chosen])
-//             //do multi stuff
-//             break
-//         }
-//       })
-//     })
-//   }
-//     console.log('PreAgg Options: ', this.optionsData)
-//     console.log('PreAgg Xdata: ', this.xData)
-//   this.genCSV(this.xData)
-//   if (!this.chart[0].options){
-//     console.log("button only detected!")
-//     this.aggregateSum(this.yData)
-//   }
-//   this.lineChart()
-//   // this.sameDay()
-// }
