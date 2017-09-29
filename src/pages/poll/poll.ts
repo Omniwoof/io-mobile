@@ -52,8 +52,8 @@ export class PollPage {
 buildPoll(){
   this.result = this.fb.group({
     pollID: [this.poll.$key, ],
-    title: this.poll.title,
-    button: this.poll.button,
+    title: [this.poll.title, Validators.required],
+    button: [this.poll.button , Validators.required],
     clientID: [this.poll.clientID, Validators.required],
     clientNickName: [this.poll.clientNickName, Validators.required],
     created: firebase.database.ServerValue.TIMESTAMP,
@@ -154,5 +154,75 @@ openPoll(poll, pollID, pollCreated){
     pollCreated: pollCreated
   });
 }
+
+addData(result){
+  const datapoints = 1000
+  let resultArray = []
+  // let resultArray = []
+  let testArray = []
+  // console.log('result',result)
+  // let newResult = result.value
+  // console.log('newResult',newResult)
+
+  for (let i = 0; i < datapoints; i++ ){
+
+    const now = new Date().getTime()
+    let newNow = now - Math.trunc(Math.random()*100000000000)
+    let newResult = {
+      created: newNow,
+      button: result.value.button,
+      clientID: result.value.clientID,
+      pollID: result.value.pollID,
+      title: result.value.title,
+      options: [{
+        controlType: result.value.options[0].controlType,
+        label1: result.value.options[0].label1,
+        label2: result.value.options[0].label2,
+        max: result.value.options[0].max,
+        slideName: result.value.options[0].slideName,
+        value: Math.trunc(Math.random()*10)
+      }]
+      }
+    // newResult.value.created = newNow
+    // console.log('newResult changed', newResult)
+    resultArray.push(newResult)
+    // console.log('resultArray.value.created: ', resultArray)
+    //
+    // let testObject = {i:i}
+    // let newNow = now - Math.trunc(Math.random()*100000000000)
+    // console.log("resultArray",resultArray)
+    // console.log("newNow",newNow)
+    // newResult.created = newNow
+    // console.log("newResult.created",newResult.created)
+    // newResult.options[0].value = Math.trunc(Math.random()*10)
+    // console.log("newResult.options[0].value ",newResult.options[0].value )
+    // // console.log("newResult.value",newResult.value)
+    // console.log("newResult",newResult)
+    // resultArray.push(newResult)
+    // testArray.push(testObject)
+    // console.log('testArray', testArray)
+  }
+  // console.log('resultArray: ', resultArray)
+  const newResArray = resultArray.sort((a,b )=>{
+    let dateA = a.created
+    let dateB = b.created
+    if (dateA < dateB){
+      return -1
+    }
+    if (dateA > dateB){
+      return 1
+    }
+    return 0
+  })
+  // console.log('newResArray',newResArray)
+  newResArray.forEach(x => {
+    this.results.push(x)
+  })
+}
+
+clearData(){
+  this.results.remove()
+}
+
 
 }

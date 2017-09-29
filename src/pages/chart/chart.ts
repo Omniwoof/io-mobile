@@ -47,10 +47,10 @@ export class ChartPage {
               public platform: Platform) {
     this.pollData = this.navParams
       .get('poll');
-    console.log('PollData: ',this.pollData)
+    // console.log('PollData: ',this.pollData)
     this.pollID = this.navParams
       .get('pollID');
-    console.log('PollID: ', this.pollID)
+    // console.log('PollID: ', this.pollID)
     this.pollCreated = this.navParams
       .get('pollCreated')
     this.chartData = db.list('/results', {
@@ -59,7 +59,7 @@ export class ChartPage {
         equalTo: this.pollID
       }
     })
-    console.log('ChartData: ', this.chartData)
+    // console.log('ChartData: ', this.chartData)
     this.chartData.subscribe(chart => {
       this.chart = chart
       this.getChartData(chart)
@@ -84,7 +84,7 @@ ngOnInit() {
 }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChartPage');
+    // console.log('ionViewDidLoad ChartPage');
   }
 
   lineChart() {
@@ -168,17 +168,17 @@ ngOnInit() {
   }
 
   getChartStructure(chartData){
-    console.log('chartData subscribe: ', chartData)
+    // console.log('chartData subscribe: ', chartData)
     const struct = ['frequency']
     if (chartData.length>0 && chartData[0].options){
       chartData[0].options.forEach(opt => struct.push(opt.controlType))
     }
-    console.log('chartStructure: ', struct)
+    // console.log('chartStructure: ', struct)
     return struct
   }
 
   getChartData(chartData){
-    console.log('chartData')
+    // console.log('chartData')
     let struct = this.getChartStructure(chartData)
 
     struct.forEach((type, i) => {
@@ -201,28 +201,28 @@ ngOnInit() {
   }
 
   getFrequency(){
-    console.log('getFrequency')
+    // console.log('getFrequency')
     const yData = this.chart.map(y => 1)
     const pollType = 'frequency'
     const title = 'Frequency'
     this.xData = this.chart.map(x => new Date(x.created))
-    console.log('yData: ', yData )
-    console.log('xData: ',this.xData )
+    // console.log('yData: ', yData )
+    // console.log('xData: ',this.xData )
     this.aggregateSum(yData, pollType, title)
   }
   getSlider(i){
-    console.log('getSlider')
+    // console.log('getSlider')
     const yData = this.chart.map(y => y.options[i].value)
     const pollType = 'slider'
     const title = this.chart[0].options[i].slideName
-    console.log('Slide title: ',title)
+    // console.log('Slide title: ',title)
     this.xData = this.chart.map(x => new Date(x.created))
-    console.log('yData: ', yData )
-    console.log('xData: ',this.xData )
+    // console.log('yData: ', yData )
+    // console.log('xData: ',this.xData )
     this.aggregateSum(yData, pollType, title)
   }
   getMulti(i){
-    console.log('getMulti')
+    // console.log('getMulti')
     const yData = this.chart.map(y => y.options[i].choices.map(c=>c))
     const pollType = 'multi'
     //TODO: include choiceTitles in prefix for titles in case of multiple multi-choices
@@ -236,15 +236,15 @@ ngOnInit() {
       })
       return titles
     }, {})
-    console.log('yDataMulti: ', yData)
+    // console.log('yDataMulti: ', yData)
     // console.log('choiceTitles: ', choiceTitles)
-    console.log('choiceVals: ', choiceVals, choiceVals.length)
-    console.log('choiceVals.length: ',choiceVals.length)
+    // console.log('choiceVals: ', choiceVals, choiceVals.length)
+    // console.log('choiceVals.length: ',choiceVals.length)
     for (i=0; i<choiceVals.length; i++){
-      console.log('test yData')
+      // console.log('test yData')
     }
     for (let prop in choiceVals) {
-      console.log(`titles.${prop} = ${choiceVals[prop]}`);
+      // console.log(`titles.${prop} = ${choiceVals[prop]}`);
       let yData = choiceVals[prop]
       let title = prop;
       this.aggregateSum(yData, pollType, title)
@@ -253,7 +253,7 @@ ngOnInit() {
 
   aggregateSum(yData, pollType, title){
     // let pollType = pollType
-    console.log('TYPE TEST: ', pollType)
+    // console.log('TYPE TEST: ', pollType)
     //These arrays are where the final chart data is generated from the functions below
     let aggX: Array<string> = []
     let aggY: Array<number> = []
@@ -269,13 +269,13 @@ ngOnInit() {
               break
             case 'slider':
               // accY.push(aggY[aggY.length-1])
-              console.log(yData[i])
+              // console.log(yData[i])
               if (!accY[0]){accY.push(yData[i-1])}
               accY.push(yData[i])
               // accY.push(1)
               // accY.push(2)
-              console.log('Accy: ', accY, accY.length, aggY[aggY.length-1])
-              console.log('accY.reduce: ', accY.reduce((a,b) => a+b), accY.length, accY.reduce((a,b) => a+b)/accY.length)
+              // console.log('Accy: ', accY, accY.length, aggY[aggY.length-1])
+              // console.log('accY.reduce: ', accY.reduce((a,b) => a+b), accY.length, accY.reduce((a,b) => a+b)/accY.length)
               aggY[aggY.length-1] = accY.reduce((a,b) => a+b) / accY.length
               // aggRemovedX[aggRemovedX.length-1] = aggRemovedX[aggRemovedX.length-1] + ", " + yData[i]
               break
@@ -411,8 +411,8 @@ ngOnInit() {
             multiText.push(true)
           }
         })
-        console.log('Text: ', text)
-        console.log('multiText: ', multiText)
+        // console.log('Text: ', text)
+        // console.log('multiText: ', multiText)
         this.data.push({x: xDataArray, y: yDataArray, type: 'bar', name: title, text: text, textposition: 'auto', connectgaps: true})
         break
       default:
@@ -421,7 +421,7 @@ ngOnInit() {
         break
   }
     // this.data.push({x: xDataArray, y: yDataArray, type: 'scatter', name: title, text: text})
-    console.log("Data Array Added! this.data.length: ", this.data.length, this.data)
+    // console.log("Data Array Added! this.data.length: ", this.data.length, this.data)
 
   }
   genCSV(data){

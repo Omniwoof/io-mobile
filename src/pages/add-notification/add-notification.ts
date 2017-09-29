@@ -62,7 +62,7 @@ export class AddNotificationPage {
       //data for the notification, id generated later
       // id: key,
       title: this.pollTitle,
-      text: 'Schedule for this poll has been changed.',
+      text: 'Please answer this question.',
       // at: new Date(new Date().getTime()),
       every: '',
       firstAt: '',
