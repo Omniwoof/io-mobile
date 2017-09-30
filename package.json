@@ -30,7 +30,7 @@
         "@ionic/storage": "2.0.1",
         "@types/plotly.js": "^1.28.5",
         "angularfire2": "^4.0.0-rc.1",
-        "cordova-android": "^6.2.2",
+        "cordova-android": "6.2.0",
         "cordova-browser": "^4.1.0",
         "cordova-plugin-add-swift-support": "^1.6.1",
         "cordova-plugin-app-event": "^1.2.1",
