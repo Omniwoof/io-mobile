@@ -45,6 +45,10 @@ export class ChartPage {
               public db: AngularFireDatabase,
               public screenOrientation: ScreenOrientation,
               public platform: Platform) {
+
+    if (this.platform.is('mobile'||'tablet')){
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+    }
     this.pollData = this.navParams
       .get('poll');
     // console.log('PollData: ',this.pollData)
@@ -114,13 +118,32 @@ ngOnInit() {
     }, {
         step: 'all',
     }],
-};
+}
+// const selectorOptions = {
+//     buttons: [{
+//       step: 'all',
+//       label: 'all'
+//     }],
+// };
 
     const element = this.el.nativeElement
     let data = this.data
+    console.log("this.data", this.data)
+    console.log('this.date[0].x', this.data[0].x )
     const layout = {
       // title: this.chart[0].title,
-      autosize: true
+      autosize: true,
+      xaxis: {
+        // type: "date"
+        // range: ['2017-07-01', '2017-12-31']
+        // rangeselector: selectorOptions
+        // rangeselector: {},
+        // rangeslider: {}
+
+      },
+      yaxis: {
+        fixedrange: true
+      }
     }
 
     if (this.platform.is('core')){
@@ -207,9 +230,9 @@ ngOnInit() {
     const yData = this.chart.map(y => 1)
     const pollType = 'frequency'
     const title = 'Frequency'
-    this.xData = this.chart.map(x => new Date(x.created))
+    this.xData = this.chart.map(x => x.created)
     // console.log('yData: ', yData )
-    // console.log('xData: ',this.xData )
+    console.log('xData: ',this.xData )
     this.aggregateSum(yData, pollType, title)
   }
   getSlider(i){
@@ -218,7 +241,7 @@ ngOnInit() {
     const pollType = 'slider'
     const title = this.chart[0].options[i].slideName
     // console.log('Slide title: ',title)
-    this.xData = this.chart.map(x => new Date(x.created))
+    // this.xData = this.chart.map(x => new Date(x.created))
     // console.log('yData: ', yData )
     // console.log('xData: ',this.xData )
     this.aggregateSum(yData, pollType, title)
@@ -257,7 +280,7 @@ ngOnInit() {
     // let pollType = pollType
     // console.log('TYPE TEST: ', pollType)
     //These arrays are where the final chart data is generated from the functions below
-    let aggX: Array<string> = []
+    let aggX: Array<Date> = []
     let aggY: Array<number> = []
     let aggRemovedX: Array<string> = []
     let accY: Array<number> = []
@@ -334,7 +357,8 @@ ngOnInit() {
           // console.log('Remx: ', aggRemovedX)
         }else{
           let formDay = this.format(data, 'YYYY-MM-DD')
-          aggX.push(formDay)
+          // aggX.push(formDay)
+          aggX.push(new Date(data))
           aggY.push(yData[i])
           aggRemovedX.push(null)
           accY = []
@@ -366,7 +390,8 @@ ngOnInit() {
     let missingDays = this.eachDay(aggX[aggX.length-2],aggX[aggX.length-1])
     missingDays.shift()
     missingDays.pop()
-    let formatArray = missingDays.map(day => this.format(day, 'YYYY-MM-DD'))
+    // let formatArray = missingDays.map(day => this.format(day, 'YYYY-MM-DD'))
+    let formatArray = missingDays.map(day => day)
     // console.log("missingDays", formatArray)
     // let yZeros = Array.apply(null, Array(missingDays.length)).map(Number.prototype.valueOf,0);
     let yZeros = (new Array(missingDays.length)).fill(null)
@@ -385,7 +410,8 @@ ngOnInit() {
   addZeroDaysBefore(aggX, aggY, aggRemovedX){
     let missingDays = this.eachDay(new Date(this.pollCreated),aggX[0])
     missingDays.pop()
-    let formatArray = missingDays.map(day => this.format(day, 'YYYY-MM-DD'))
+    // let formatArray = missingDays.map(day => this.format(day, 'YYYY-MM-DD'))
+    let formatArray = missingDays.map(day => day)
     // console.log('missingDays2: ',missingDays)
     // let yZeros = Array.apply(null, Array(missingDays.length)).map(Number.prototype.valueOf,0);
     let yZeros = (new Array(missingDays.length)).fill(null)
@@ -403,6 +429,8 @@ ngOnInit() {
 
   addToDataArray(title, xDataArray, yDataArray, text, pollType){
     const multiText = []
+    const xArray: Array<Date> = xDataArray
+    console.log("xArray[xArray.length-1] typeof", typeof xArray[xArray.length-1])
 
     switch (pollType) {
       case 'multi':
@@ -415,10 +443,10 @@ ngOnInit() {
         })
         // console.log('Text: ', text)
         // console.log('multiText: ', multiText)
-        this.data.push({x: xDataArray, y: yDataArray, type: 'bar', name: title, text: text, textposition: 'auto', connectgaps: true})
+        this.data.push({x: xArray, y: yDataArray, type: 'bar', name: title, text: text, textposition: 'auto', connectgaps: true})
         break
       default:
-        this.data.push({x: xDataArray, y: yDataArray, type: 'line', mode: 'lines+markers', marker: {size: 12}, name: title, text: text, textposition: 'auto', connectgaps: true})
+        this.data.push({x: xArray, y: yDataArray, type: 'line', mode: 'lines+markers', marker: {size: 12}, name: title, text: text, textposition: 'auto', connectgaps: true})
         // this.data.push({x: xDataArray, y: yDataArray, type: 'line', mode: 'lines+markers+text',  marker: {size: 12}, name: title, text: text, textposition: 'auto', connectgaps: true})
         break
   }

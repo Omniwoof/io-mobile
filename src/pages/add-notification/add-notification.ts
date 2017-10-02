@@ -62,7 +62,7 @@ export class AddNotificationPage {
       //data for the notification, id generated later
       // id: key,
       title: this.pollTitle,
-      text: 'Please answer this question.',
+      text: 'Your question is ready to be answered.',
       // at: new Date(new Date().getTime()),
       every: '',
       firstAt: '',

@@ -59,7 +59,7 @@ export class NotificationsProvider {
     })
   }
 addNotification(title, pollID, at, every, firstat){
-  console.log('Notification test', title)
+  // console.log('Notification test', title)
   this.schedules.push({
     created: firebase.database.ServerValue.TIMESTAMP,
     clientID: this._auth.currentUser.uid,
@@ -67,7 +67,7 @@ addNotification(title, pollID, at, every, firstat){
     //data for the notification, id generated later
     // id: key,
     title: title,
-    text: 'Schedule for this poll has been changed.',
+    text: 'Your question is ready to be answered.',
     at: at,
     every: every,
     firstat: firstat
@@ -80,7 +80,7 @@ addNotification(title, pollID, at, every, firstat){
   // })
 }
 schedFactory(sched){
-  console.log("sched triggered")
+  // console.log("sched triggered")
   sched.forEach((val, i) => {
     // console.log("Val: ", val)
     const atSplit = val.at.split(':')

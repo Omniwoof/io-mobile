@@ -242,7 +242,7 @@ addData(result){
   // console.log('newResArray',newResArray)
   newResArray.forEach(x => {
     // console.log('newResArray',x)
-    setTimeout(()=>{this.results.push(x)}, 100);
+    setTimeout(()=>{this.results.push(x)}, 10);
 
   })
   console.log('Data Generated')
