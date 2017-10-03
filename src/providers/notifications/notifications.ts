@@ -80,6 +80,7 @@ addNotification(title, pollID, at, every, firstat){
   // })
 }
 schedFactory(sched){
+  this.localNotifications.clearAll()
   // console.log("sched triggered")
   sched.forEach((val, i) => {
     // console.log("Val: ", val)

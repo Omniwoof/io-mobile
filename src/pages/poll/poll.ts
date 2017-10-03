@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable  } from 'angularfire2/database';
 import * as firebase from 'firebase';
 
@@ -34,7 +35,12 @@ export class PollPage {
     public navParams: NavParams,
     public fb: FormBuilder,
     private db: AngularFireDatabase,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    public screenOrientation: ScreenOrientation,
+    public platform: Platform) {
+      if (this.platform.is('mobile'||'tablet')){
+    this.screenOrientation.unlock();
+  }
     this.pollID = this.navParams
       .get('pollID');
       console.log("PollID: ", this.pollID)
